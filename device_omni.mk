@@ -31,3 +31,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Omni specific overlay
 DEVICE_PACKAGE_OVERLAYS += \
     device/sony/yukon-common/overlay-omni
+
+PRODUCT_COPY_FILES += \
+     device/sony/yukon-common/rootdir/$(DEVICE_RESOLUTION).rle:root/logo.rle
