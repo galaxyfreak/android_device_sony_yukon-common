@@ -12,6 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+BOARD_USES_QCOM_HARDWARE := true
+TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
+TARGET_USES_QCOM_BSP := true
+TARGET_QCOM_DISPLAY_VARIANT := caf-bfam
+TARGET_QCOM_MEDIA_VARIANT := caf-bfam
+COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DQCOM_BSP
+
 # TWRP
 BOARD_HAS_NO_SELECT_BUTTON := true
 
