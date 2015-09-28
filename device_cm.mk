@@ -20,21 +20,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     extract_elf_ramdisk
 
-# Recovery keycheck
-PRODUCT_PACKAGES += \
-    keycheck
-
 # Properties
 PRODUCT_PROPERTY_OVERRIDES += \
     telephony.lteOnGSMDevice=1
 
-# Omni specific overlay
-DEVICE_PACKAGE_OVERLAYS += \
-    device/sony/yukon-common/overlay-omni
-
 PRODUCT_COPY_FILES += \
      device/sony/yukon-common/rootdir/$(DEVICE_RESOLUTION).rle:root/logo.rle
 
-#Camera
+# Camera
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
