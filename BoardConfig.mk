@@ -64,9 +64,9 @@ BOARD_EGL_CFG := device/sony/yukon-common/rootdir/system/lib/egl/egl.cfg
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 
-USE_CAMERA_STUB := false
 TARGET_USES_ION := true
 USE_DEVICE_SPECIFIC_CAMERA := true
+BOARD_QTI_CAMERA_32BIT_ONLY := true
 
 # Wi-Fi definitions for Qualcomm solution
 BOARD_HAS_QCOM_WLAN := true
