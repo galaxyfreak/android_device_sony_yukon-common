@@ -12,10 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# implement CM camerawrapper
-TARGET_PROVIDES_CAMERA_HAL := true
-TARGET_RELEASE_CPPFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
-
 BOARD_USES_QCOM_HARDWARE := true
 TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 TARGET_USES_QCOM_BSP := true

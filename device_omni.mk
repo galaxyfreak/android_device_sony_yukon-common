@@ -34,11 +34,6 @@ DEVICE_PACKAGE_OVERLAYS += \
 
 PRODUCT_COPY_FILES += \
      device/sony/yukon-common/rootdir/$(DEVICE_RESOLUTION).rle:root/logo.rle
-# implement CM camerawrapper
-PRODUCT_PACKAGES += \
-    camera.yukon \
-    CameraWorkaround \
-    libcutilz
 
 #Camera
 PRODUCT_PROPERTY_OVERRIDES += \
