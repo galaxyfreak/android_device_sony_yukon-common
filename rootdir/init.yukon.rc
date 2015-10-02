@@ -29,14 +29,11 @@ on init
     mount tmpfs tmpfs /tmp nosuid mode=0755,uid=0,gid=0
     symlink /dev/socket /tmp
 
-    # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
-
     mkdir /mnt/media_rw/sdcard1 0775 media_rw media_rw
     mkdir /mnt/media_rw/usbdisk 0775 media_rw media_rw
     mkdir /mnt/media_rw/usbotg 0775 media_rw media_rw
-
     mkdir /storage/sdcard1 0775 system system
     mkdir /storage/usbdisk 0775 system system
     mkdir /storage/usbotg 0775 system system
@@ -46,11 +43,13 @@ on init
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
 
-    # Support legacy paths
+    # for backwards compatibility
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
     symlink /storage/emulated/legacy /storage/sdcard0
     symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+    symlink /storage/sdcard1 /ext_card
+    symlink /storage/sdcard1 /mnt/ext_card
     symlink /storage/usbdisk /usbdisk
     symlink /storage/usbdisk /mnt/usbdisk
 
@@ -164,29 +163,41 @@ on boot
     chown system system /sys/class/leds/wled:backlight/brightness
     chmod 660 /sys/class/leds/wled:backlight/brightness
 
-    # LED
-    chown system system /sys/class/leds/led:rgb_red/brightness
-    chown system system /sys/class/leds/led:rgb_red/lut_pwm
-    chown system system /sys/class/leds/led:rgb_red/step_duration
-    chown system system /sys/class/leds/led:rgb_green/brightness
-    chown system system /sys/class/leds/led:rgb_green/lut_pwm
-    chown system system /sys/class/leds/led:rgb_green/step_duration
+    # led RGB
+    chown system system /sys/class/leds/led:rgb_blue/blink
     chown system system /sys/class/leds/led:rgb_blue/brightness
-    chown system system /sys/class/leds/led:rgb_blue/lut_pwm
-    chown system system /sys/class/leds/led:rgb_blue/step_duration
-    chown system system /sys/class/leds/rgb/sync_state
-    chown system system /sys/class/leds/rgb/start_blink
-    chmod 660 /sys/class/leds/led:rgb_red/brightness
-    chmod 660 /sys/class/leds/led:rgb_red/lut_pwm
-    chmod 660 /sys/class/leds/led:rgb_red/step_duration
-    chmod 660 /sys/class/leds/led:rgb_green/brightness
-    chmod 660 /sys/class/leds/led:rgb_green/lut_pwm
-    chmod 660 /sys/class/leds/led:rgb_green/step_duration
-    chmod 660 /sys/class/leds/led:rgb_blue/brightness
-    chmod 660 /sys/class/leds/led:rgb_blue/lut_pwm
-    chmod 660 /sys/class/leds/led:rgb_blue/step_duration
-    chmod 660 /sys/class/leds/rgb/sync_state
-    chmod 220 /sys/class/leds/rgb/start_blink
+    chown system system /sys/class/leds/led:rgb_blue/duty_pcts
+    chown system system /sys/class/leds/led:rgb_blue/lut_flags
+    chown system system /sys/class/leds/led:rgb_blue/pause_hi
+    chown system system /sys/class/leds/led:rgb_blue/pause_lo
+    chown system system /sys/class/leds/led:rgb_blue/pwm_us
+    chown system system /sys/class/leds/led:rgb_blue/ramp_step_ms
+    chown system system /sys/class/leds/led:rgb_blue/start_idx
+
+    chown system system /sys/class/leds/led:rgb_green/blink
+    chown system system /sys/class/leds/led:rgb_green/brightness
+    chown system system /sys/class/leds/led:rgb_green/duty_pcts
+    chown system system /sys/class/leds/led:rgb_green/lut_flags
+    chown system system /sys/class/leds/led:rgb_green/pause_hi
+    chown system system /sys/class/leds/led:rgb_green/pause_lo
+    chown system system /sys/class/leds/led:rgb_green/pwm_us
+    chown system system /sys/class/leds/led:rgb_green/ramp_step_ms
+    chown system system /sys/class/leds/led:rgb_green/start_idx
+
+    chown system system /sys/class/leds/led:rgb_red/blink
+    chown system system /sys/class/leds/led:rgb_red/brightness
+    chown system system /sys/class/leds/led:rgb_red/duty_pcts
+    chown system system /sys/class/leds/led:rgb_red/lut_flags
+    chown system system /sys/class/leds/led:rgb_red/pause_hi
+    chown system system /sys/class/leds/led:rgb_red/pause_lo
+    chown system system /sys/class/leds/led:rgb_red/pwm_us
+    chown system system /sys/class/leds/led:rgb_red/ramp_step_ms
+    chown system system /sys/class/leds/led:rgb_red/start_idx
+
+    chown system system /sys/class/leds/lm3630-lcd-bl/brightness
+    chown system system /sys/class/leds/lm3630-lcd-bl/cabc
+    chown system system /sys/class/leds/lm3630-lcd-bl/fsc
+    chown system system /sys/class/leds/lm3630-lcd-bl/pwm
 
     # Enable writing to led blink node from userspace
     chown system system /sys/class/leds/red/blink
@@ -257,6 +268,8 @@ on boot
     # FB2 permissions
     chown system graphics /sys/class/graphics/fb2/ad
     chmod 0664 /sys/class/graphics/fb2/ad
+    chown system system /sys/class/graphics/fb1/format_3d
+    chmod 0664 /sys/class/graphics/fb1/format_3d
 
     # For bridgemgr daemon to inform the USB driver of the correct transport
     chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
@@ -378,7 +391,7 @@ service sct_service /system/vendor/bin/sct_service
     class main
 
 # Camera
-service qcamerasvr /system/vendor/bin/mm-qcamera-daemon
+service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
