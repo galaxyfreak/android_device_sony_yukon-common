@@ -478,6 +478,9 @@ service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 -t 4 -d /mnt/med
     class late_start
     disabled
 
+on property:ro.fuse_sdcard=true
+    start sdcard
+
 # BT service
 service hciattach /system/bin/sh /system/etc/init.yukon.bt.sh
     class main
