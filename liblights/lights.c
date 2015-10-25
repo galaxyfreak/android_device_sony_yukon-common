@@ -395,10 +395,7 @@ static int open_lights(const struct hw_module_t* module,
 	}
 
 	if (strcmp(name, LIGHT_ID_BACKLIGHT) == 0) {
-		if (stat(led_descs[LED_BACKLIGHT].brightness, &buf) == 0)
-			set_light = set_light_backlight;
-		else
-			set_light = set_light_mdss;
+		set_light = set_light_mdss;
 		shared_which = -1;
 	} else if (strcmp(name, LIGHT_ID_BATTERY) == 0) {
 		set_light = set_light_shared;
