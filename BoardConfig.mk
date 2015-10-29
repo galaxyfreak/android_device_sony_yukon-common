@@ -69,6 +69,9 @@ BOARD_EGL_CFG := device/sony/yukon-common/rootdir/system/lib/egl/egl.cfg
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 
+# NFC
+BOARD_NFC_CHIPSET := pn547
+
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
 BOARD_QTI_CAMERA_32BIT_ONLY := true
