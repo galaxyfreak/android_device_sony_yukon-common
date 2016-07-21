@@ -15,6 +15,7 @@
 import init.yukon.usb.rc
 import init.yukon.pwr.rc
 import init.yukon.dev.rc
+import init.zram.rc
 
 on early-init
     mount debugfs debugfs /sys/kernel/debug

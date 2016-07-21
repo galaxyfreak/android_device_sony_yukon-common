@@ -16,6 +16,10 @@
 PRODUCT_PACKAGES += \
     dtbTool
 
+# Snap
+PRODUCT_PACKAGES += \
+    Snap
+
 # Bootimg tools
 PRODUCT_PACKAGES += \
     extract_elf_ramdisk

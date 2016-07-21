@@ -24,6 +24,8 @@ PRODUCT_COPY_FILES += \
     $(SONY_ROOT)/init.yukon.rc:root/init.yukon.rc \
     $(SONY_ROOT)/init.yukon.usb.rc:root/init.yukon.usb.rc \
     $(SONY_ROOT)/init.yukon.pwr.rc:root/init.yukon.pwr.rc \
+    $(SONY_ROOT)/init.zram.rc:root/init.zram.rc \
+    $(SONY_ROOT)/fstab.zram:root/fstab.zram \
     $(SONY_ROOT)/system/usr/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     $(SONY_ROOT)/system/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
     $(SONY_ROOT)/system/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
@@ -206,6 +208,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-filter=interpret-only \
     dalvik.vm.image-dex2oat-filter=speed
+
+# ZRAM
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.zram=true
 
 # ART
 PRODUCT_DEX_PREOPT_DEFAULT_FLAGS := \
